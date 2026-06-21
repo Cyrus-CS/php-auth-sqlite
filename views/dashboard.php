@@ -35,7 +35,7 @@ $initial = strtoupper(mb_substr($_SESSION['username'], 0, 1));
             <div style="width:1px;background:var(--border)"></div>
             <div>
                 <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text-main)">
-                    SQLite
+                    MySQL
                 </div>
                 Base de données
             </div>

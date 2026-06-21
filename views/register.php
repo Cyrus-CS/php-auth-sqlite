@@ -1,17 +1,13 @@
-<?php
-// Variables héritées de layout.php : $errors, $old
-?>
-
 <h2 class="auth-card-title">Créer un compte</h2>
-<p class="auth-card-sub">Rejoignez-nous — c'est gratuit et rapide.</p>
+<p class="auth-card-sub">Rejoignez-nous, c'est gratuit et rapide.</p>
 
 <?php if ($errors): ?>
-    <div class="alert-custom alert-err" role="alert">
-        <i class="bi bi-exclamation-circle me-2"></i>
-        <?php foreach ($errors as $e): ?>
-            <?= htmlspecialchars($e) ?><br>
-        <?php endforeach; ?>
-    </div>
+<div class="alert-custom alert-err" role="alert">
+    <i class="bi bi-exclamation-circle me-2"></i>
+    <?php foreach ($errors as $e): ?>
+    <?= htmlspecialchars($e) ?><br>
+    <?php endforeach; ?>
+</div>
 <?php endif; ?>
 
 <form method="POST" action="index.php?action=register" novalidate>
@@ -21,18 +17,9 @@
         <label class="form-label" for="username">Nom d'utilisateur</label>
         <div class="input-group-custom">
             <i class="bi bi-person input-icon"></i>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                class="form-control-custom"
-                placeholder="mon_pseudo"
-                value="<?= htmlspecialchars($old['username'] ?? '') ?>"
-                autocomplete="username"
-                minlength="3"
-                maxlength="30"
-                required
-            >
+            <input type="text" id="username" name="username" class="form-control-custom" placeholder="mon_pseudo"
+                value="<?= htmlspecialchars($old['username'] ?? '') ?>" autocomplete="username" minlength="3"
+                maxlength="30" required>
         </div>
     </div>
 
@@ -41,16 +28,8 @@
         <label class="form-label" for="email">Adresse e-mail</label>
         <div class="input-group-custom">
             <i class="bi bi-envelope input-icon"></i>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                class="form-control-custom"
-                placeholder="votre@email.com"
-                value="<?= htmlspecialchars($old['email'] ?? '') ?>"
-                autocomplete="email"
-                required
-            >
+            <input type="email" id="email" name="email" class="form-control-custom" placeholder="votre@email.com"
+                value="<?= htmlspecialchars($old['email'] ?? '') ?>" autocomplete="email" required>
         </div>
     </div>
 
@@ -59,21 +38,10 @@
         <label class="form-label" for="reg_password">Mot de passe</label>
         <div class="input-group-custom">
             <i class="bi bi-lock input-icon"></i>
-            <input
-                type="password"
-                id="reg_password"
-                name="password"
-                class="form-control-custom"
-                placeholder="Min. 8 caractères"
-                autocomplete="new-password"
-                required
-            >
-            <button
-                type="button"
-                class="toggle-pwd"
-                onclick="togglePwd('reg_password', this.querySelector('i'))"
-                aria-label="Afficher / masquer"
-            >
+            <input type="password" id="reg_password" name="password" class="form-control-custom"
+                placeholder="Min. 8 caractères" autocomplete="new-password" required>
+            <button type="button" class="toggle-pwd" onclick="togglePwd('reg_password', this.querySelector('i'))"
+                aria-label="Afficher / masquer">
                 <i class="bi bi-eye"></i>
             </button>
         </div>
@@ -90,21 +58,10 @@
         <label class="form-label" for="confirm">Confirmer le mot de passe</label>
         <div class="input-group-custom">
             <i class="bi bi-lock-fill input-icon"></i>
-            <input
-                type="password"
-                id="confirm"
-                name="confirm"
-                class="form-control-custom"
-                placeholder="Répétez le mot de passe"
-                autocomplete="new-password"
-                required
-            >
-            <button
-                type="button"
-                class="toggle-pwd"
-                onclick="togglePwd('confirm', this.querySelector('i'))"
-                aria-label="Afficher / masquer"
-            >
+            <input type="password" id="confirm" name="confirm" class="form-control-custom"
+                placeholder="Répétez le mot de passe" autocomplete="new-password" required>
+            <button type="button" class="toggle-pwd" onclick="togglePwd('confirm', this.querySelector('i'))"
+                aria-label="Afficher / masquer">
                 <i class="bi bi-eye"></i>
             </button>
         </div>
@@ -123,28 +80,28 @@
 </div>
 
 <script>
-    const pwdInput     = document.getElementById('reg_password');
-    const confirmInput = document.getElementById('confirm');
-    const matchLabel   = document.getElementById('match_label');
+const pwdInput = document.getElementById('reg_password');
+const confirmInput = document.getElementById('confirm');
+const matchLabel = document.getElementById('match_label');
 
-    pwdInput.addEventListener('input', function () {
-        checkStrength(this, 'reg_strength_fill', 'reg_strength_label');
-        checkMatch();
-    });
+pwdInput.addEventListener('input', function() {
+    checkStrength(this, 'reg_strength_fill', 'reg_strength_label');
+    checkMatch();
+});
 
-    confirmInput.addEventListener('input', checkMatch);
+confirmInput.addEventListener('input', checkMatch);
 
-    function checkMatch() {
-        if (!confirmInput.value) {
-            matchLabel.textContent = '';
-            return;
-        }
-        if (pwdInput.value === confirmInput.value) {
-            matchLabel.textContent = '✓ Les mots de passe correspondent';
-            matchLabel.style.color = '#10B981';
-        } else {
-            matchLabel.textContent = '✗ Les mots de passe ne correspondent pas';
-            matchLabel.style.color = '#EF4444';
-        }
+function checkMatch() {
+    if (!confirmInput.value) {
+        matchLabel.textContent = '';
+        return;
     }
+    if (pwdInput.value === confirmInput.value) {
+        matchLabel.textContent = '✓ Les mots de passe correspondent';
+        matchLabel.style.color = '#10B981';
+    } else {
+        matchLabel.textContent = '✗ Les mots de passe ne correspondent pas';
+        matchLabel.style.color = '#EF4444';
+    }
+}
 </script>

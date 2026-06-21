@@ -6,10 +6,10 @@ function handleRegister(): void
 {
     $username = trim($_POST['username'] ?? '');
     $email    = trim($_POST['email']    ?? '');
-    $password = $_POST['password']      ?? '';
-    $confirm  = $_POST['confirm']       ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirm  = $_POST['confirm'] ?? '';
 
-    // ── Validations ───────────────────────────────────────────────────────────
+    // ── Validations ────
     $errors = [];
 
     if (strlen($username) < 3 || strlen($username) > 30) {
@@ -35,7 +35,7 @@ function handleRegister(): void
         exit;
     }
 
-    // ── Insertion ─────────────────────────────────────────────────────────────
+    // ── Insertion ─────
     try {
         $db   = getDB();
         $hash = password_hash($password, PASSWORD_BCRYPT);
@@ -50,11 +50,11 @@ function handleRegister(): void
         exit;
 
     } catch (PDOException $e) {
-        // Détection de doublon sans révéler le détail exact
         if (str_contains($e->getMessage(), 'UNIQUE')) {
             $_SESSION['errors'] = ["Ces informations sont déjà utilisées par un autre compte."];
         } else {
-            $_SESSION['errors'] = ["Une erreur est survenue. Veuillez réessayer."];
+            // Temporaire — affiche l'erreur réelle
+            $_SESSION['errors'] = [$e->getMessage()];
         }
         $_SESSION['old'] = compact('username', 'email');
         header('Location: index.php?action=register');
@@ -99,7 +99,7 @@ function handleLogin(): void
             exit;
         }
 
-        // ── Succès : ouvrir la session ─────────────────────────────────────────
+        // ── Succès : ouvrir la session ───
         session_regenerate_id(true);
         $_SESSION['user_id']  = $user['id'];
         $_SESSION['username'] = $user['username'];

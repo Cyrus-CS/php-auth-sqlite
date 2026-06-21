@@ -1,8 +1,9 @@
 <?php
-/**
- * Retourne une connexion PDO SQLite.
- * Crée le fichier + la table users si nécessaire.
- */
+define('DB_HOST', '127.0.0.1');
+define('DB_NAME', 'php-simple-auth');
+define('DB_USER', 'root');
+define('DB_PASS', '');         // Vide par défaut sur XAMPP
+
 function getDB(): PDO
 {
     static $pdo = null;
@@ -11,27 +12,21 @@ function getDB(): PDO
         return $pdo;
     }
 
-    // Créer le dossier si absent
-    if (!is_dir(DB_DIR)) {
-        mkdir(DB_DIR, 0755, true);
-    }
+    $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
 
-    $pdo = new PDO('sqlite:' . DB_PATH);
+    $pdo = new PDO($dsn, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-    // Activer les foreign keys SQLite
-    $pdo->exec('PRAGMA foreign_keys = ON;');
-
-    // Création de la table users (si elle n'existe pas)
+    // Création de la table users si elle n'existe pas
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS users (
-            id          INTEGER PRIMARY KEY AUTOINCREMENT,
-            username    TEXT    NOT NULL UNIQUE COLLATE NOCASE,
-            email       TEXT    NOT NULL UNIQUE COLLATE NOCASE,
-            password    TEXT    NOT NULL,
-            created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
-        );
+            id         INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            username   VARCHAR(30)  NOT NULL UNIQUE,
+            email      VARCHAR(255) NOT NULL UNIQUE,
+            password   VARCHAR(255) NOT NULL,
+            created_at DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
     ");
 
     return $pdo;
