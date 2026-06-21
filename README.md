@@ -71,7 +71,7 @@ php-auth-sqlite/
 
 ```bash
 # Cloner le dépôt
-git clone https://github.com/Cyrus-CS/php-auth-sqlite.git
+git clone https://github.com/Cyrus-CS/php-auth.git
 cd php-auth-sqlite
 
 # Lancer le serveur PHP intégré
