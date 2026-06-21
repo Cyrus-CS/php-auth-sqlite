@@ -1,6 +1,6 @@
 # php-auth
 
-> Système d'authentification PHP natif avec SQLite : inscription, connexion, gestion de session et indicateur de force du mot de passe.
+> Système d'authentification PHP natif avec SQL : inscription, connexion, gestion de session et indicateur de force du mot de passe.
 
 ---
 
@@ -24,7 +24,8 @@
 - **Confirmateur de correspondance** en temps réel sur l'inscription
 - **Messages d'erreur génériques** (anti-énumération de comptes)
 - **Création automatique** de la base SQLite et de la table `users` au premier démarrage
-- Design responsive avec Bootstrap 5 + thème sombre personnalisé
+- **Creation de la table users sur XAMPP avec phpMyAdmin**
+- **Design responsive avec Bootstrap 5 + thème sombre personnalisé**
 
 ---
 
@@ -33,7 +34,7 @@
 | Couche | Technologie |
 |---|---|
 | Backend | PHP 8.1+ natif (PDO) |
-| Base de données | SQLite 3 (fichier local) |
+| Base de données | SQLite 3 (fichier local) ou Mysql |
 | Frontend | Bootstrap 5.3, Bootstrap Icons |
 | Typographie | Space Grotesk, Inter (Google Fonts) |
 | Serveur local | PHP built-in server / XAMPP / Laragon |
@@ -66,13 +67,14 @@ php-auth-sqlite/
 
 - PHP 8.1 ou supérieur
 - Extension `pdo_sqlite` activée (incluse par défaut dans XAMPP / Laragon)
+- Mysql : phpMyAdmin
 
 ### Démarrage rapide
 
 ```bash
 # Cloner le dépôt
 git clone https://github.com/Cyrus-CS/php-auth.git
-cd php-auth-sqlite
+cd php-auth
 
 # Lancer le serveur PHP intégré
 php -S localhost:8000
@@ -84,7 +86,7 @@ Ouvrir ensuite `http://localhost:8000` dans le navigateur.
 
 ### Avec XAMPP / Laragon
 
-Placer le dossier dans `htdocs/` (XAMPP) ou `www/` (Laragon) et accéder via `http://localhost/php-auth-sqlite`.
+Placer le dossier dans `htdocs/` (XAMPP) ou `www/` (Laragon) et accéder via `http://localhost/php-auth`.
 
 ---
 
